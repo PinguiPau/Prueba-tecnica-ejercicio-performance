@@ -1,4 +1,19 @@
 ================================================================================
+CÓMO CLONAR Y EJECUTAR RÁPIDAMENTE
+================================================================================
+
+1. Clonar el repositorio:
+   git clone https://github.com/PinguiPau/Prueba-tecnica-ejercicio-performance.git
+
+2. Entrar a la carpeta del proyecto:
+   cd Prueba-tecnica-ejercicio-performance
+
+3. Ejecutar la prueba de carga con Grafana K6:
+   k6 run script.js
+
+================================================================================
+
+================================================================================
 
            MANUAL DE USUARIO Y DESPLIEGUE PASO A PASO (GRAFANA K6)
 
