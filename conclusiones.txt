@@ -1,0 +1,56 @@
+==============================================================================
+   INFORME DE RESULTADOS Y CONCLUSIONES TÉCNICAS DE LA PRUEBA (EJERCICIO 1)
+==============================================================================
+
+1. RESUMEN EJECUTIVO Y RESULTADOS CUANTITATIVOS
+   A continuación se detallan las métricas consolidadas obtenidas tras la 
+   ejecución completa del escenario de prueba de carga con Grafana K6:
+
+   ---------------------------------------------------------------------------
+   MÉTRICA / INDICADOR       | OBJETIVO (SLA) | RESULTADO REAL | ESTADO
+   ---------------------------------------------------------------------------
+   Rendimiento (Throughput)   | >= 20.0 TPS    | 20.00 TPS      | CUMPLIDO
+   Latencia Percentil 95(p95) | <= 1500 ms     | 486.47 ms      | CUMPLIDO
+   Latencia Promedio (avg)    | N/A            | 393.27 ms      | CUMPLIDO
+   Tasa de Fallos (HTTP)      | < 3.00%        | 0.00% (0/600)  | CUMPLIDO
+   Aserciones (Checks)        | 100% Exitosos  | 100% (1200/1200| CUMPLIDO
+   ---------------------------------------------------------------------------
+
+
+2. EVALUACIÓN DE CRITERIOS DE ACEPTACIÓN (SLAS)
+   - SLA 1: Throughput Objetivo (20.0 TPS)
+     Estatus: SATISFACTORIO. El sistema procesó un total de 600 solicitudes 
+     HTTP exitosas durante la ventana de ejecución de 30 segundos, manteniendo 
+     un flujo constante y estable de exactamente 20 transacciones por segundo.
+
+   - SLA 2: Tiempo de Respuesta / Latencia (p95 <= 1500 ms)
+     Estatus: SATISFACTORIO. El 95% de las solicitudes fueron atendidas en 
+     un tiempo igual o inferior a 486.47 ms, manteniéndose ampliamente por 
+     debajo del umbral máximo permitido (1500 ms).
+
+   - SLA 3: Tasa de Errores (< 3.00%)
+     Estatus: SATISFACTORIO. No se registraron peticiones fallidas (0/600), 
+     obteniendo una tasa de error del 0.00% en todo el ciclo de prueba.
+
+
+3. ANÁLISIS DE ARQUITECTURA Y COMPORTAMIENTO TÉCNICO
+   - Eficiencia en la Carga de Datos (SharedArray): La lectura parametrizada 
+     del archivo 'usuario.csv' mediante SharedArray demostró ser óptima, 
+     garantizando que la memoria RAM del ejecutor de K6 se mantuviera baja y 
+     sin sobrecostos de I/O por cada VU activa.
+
+   - Respuesta del Endpoint (/auth/login): FakeStoreAPI respondió a cada 
+     solicitud con código de estado HTTP 201 Created (o 200 OK según endpoint), 
+     retornando en todas las iteraciones la estructura JSON esperada con el 
+     token de autenticación JWT.
+
+
+4. CONCLUSIÓN GENERAL Y RECOMENDACIÓN DE QA
+   - Conclusión: La API de autenticación evaluada cumple plenamente con los 
+     estándares de rendimiento, velocidad y estabilidad exigidos para soportar 
+     una carga constante de 20 TPS.
+
+   - Recomendación: El script queda validado y habilitado para ser integrado 
+     dentro del pipeline de Integración Continua (CI/CD) para la ejecución de 
+     pruebas de regresión de rendimiento automáticas.
+==============================================================================
